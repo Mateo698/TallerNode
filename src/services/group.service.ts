@@ -54,4 +54,45 @@ class GroupService{
             throw error;
         }
     }
+
+    public async findByName(name: string): Promise<GroupDocument | null>{
+        try {
+            const groupExists = await GroupModel.findOne({name: name});
+            if(groupExists) return groupExists;
+            return null;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public async findById(id: string): Promise<GroupDocument | null>{
+        try {
+            const groupExists = await GroupModel.findById(id);
+            if(groupExists) return groupExists;
+            return null;
+        } catch (error) {
+            throw error;
+        }
+    }
+    
+
+    public async getAllAndUsers(): Promise<GroupDocument[]>{ // This method is used to populate the users field of the GroupDocument
+        try {
+            const groups = await GroupModel.find().populate("usersId");
+            return groups;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public async getGroupAndUsers(id: string): Promise<GroupDocument | null>{
+        try {
+            const group = await GroupModel.findById(id).populate("usersId");
+            return group;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
+
+export default new GroupService();

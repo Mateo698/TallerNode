@@ -20,6 +20,15 @@ class UserService{
         }
     }
 
+    public async findByEmail(email: string): Promise<UserDocument | null>{
+        try{
+            const userExists = await UserModel.findOne({email: email});
+            return userExists;
+        } catch(error){
+            throw error;
+        }
+    }
+
     public async updateUser(user: UserDocument, userInput: UserInput): Promise<UserDocument | null>{
         try{
             const updatedUser = await UserModel.findByIdAndUpdate(user._id, userInput, {new: true});
@@ -55,4 +64,15 @@ class UserService{
             throw error;
         }
     }
+
+    public async getUserAndGroups(id: string): Promise<UserDocument | null>{
+        try {
+            const user: UserDocument | null = await UserModel.findById(id).populate("groups");
+            return user;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
+
+export default new UserService();
