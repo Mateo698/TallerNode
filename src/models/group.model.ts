@@ -8,6 +8,7 @@ export interface GroupDocument extends GroupInput, mongoose.Document {
     createdAt: Date;
     updatedAt: Date;
     deleteAt?: Date;
+    usersId: string[];
 }
 
 const groupSchema = new mongoose.Schema({

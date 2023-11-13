@@ -1,3 +1,4 @@
+import User from "../models/user.model";
 import UserModel, { UserInput, UserDocument } from "../models/user.model";
 import jwt from "jsonwebtoken";
 
@@ -69,6 +70,15 @@ class UserService{
         try {
             const user: UserDocument | null = await UserModel.findById(id).populate("groups");
             return user;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public async generateToken(user: UserDocument): Promise<string>{
+        try {
+            const token = jwt.sign({user_id: user._id,user_email:user.email,user_role:user.role}, process.env.TOKEN_SECRET || "tokenTest", {expiresIn: "1d"});
+            return token;
         } catch (error) {
             throw error;
         }

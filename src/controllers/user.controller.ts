@@ -3,6 +3,7 @@ import userService from "../services/user.service";
 import { UserInput,UserDocument } from "../models/user.model";
 import bcrypt from "bcrypt";
 
+
 class UserController{
     public async create(req: Request, res: Response): Promise<Response>{
         try {
@@ -73,7 +74,24 @@ class UserController{
         try {
             const user: UserDocument | null = await userService.getUserAndGroups(req.params.id);
             if(!user) return res.status(404).json({message: "User not found"});
-            return res.status(200).json(user.groups);
+            return res.status(200).json(user);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
+
+    //Authenticates user
+
+    public async authenticate(req: Request, res: Response): Promise<Response>{
+        try {
+            const user: UserDocument | null = await userService.findByEmail(req.body.email);
+            if(!user) return res.status(404).json({message: "User not found"});
+
+            const validPassword: boolean = await bcrypt.compare(req.body.password, user.password);
+            if(!validPassword) return res.status(401).json({message: "Invalid credentials"});
+
+            const token: string = await userService.generateToken(user);
+            return res.status(200).json({token: token});
         } catch (error) {
             return res.status(500).json(error);
         }
