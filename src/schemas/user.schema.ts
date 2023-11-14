@@ -10,7 +10,4 @@ export const UserSchema = object({
     password: string({
         required_error: "Password is required",
     }).min(8),
-    groups: array(string({
-            required_error: "Group is required",
-    })).min(1),
 });

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 //DTO
 export interface UserInput {
@@ -12,6 +13,7 @@ export interface UserDocument extends UserInput, mongoose.Document {
     updatedAt: Date;
     deleteAt?: Date;
     role: "superadmin" | "user";
+    groups: string[];
 }
 
 // Schema
@@ -19,7 +21,7 @@ const userSchema = new mongoose.Schema({
     name: { type: String, required: true, maxlength: 50 },
     email: { type: String, required: true, index: true, unique: true },
     password: { type: String, required: true},
-    groups: [{ type: String, required: true, default: [] }],
+    groups: [{ type: Schema.Types.ObjectId, ref: "Group" }],
     role: { type: String, required: false, enum: ["superadmin", "user"], default: "user" }
 }, {timestamps: true, collection: "users"});
 

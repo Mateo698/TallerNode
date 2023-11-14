@@ -49,6 +49,8 @@ class GroupController{
         try {
             const group: GroupDocument | null = await groupService.findById(req.params.id);
             if(!group) return res.status(404).json({message: "Group not found"});
+
+
             const updatedGroup: GroupDocument | null = await groupService.addUserToGroup(group, req.body.userId);
             return res.status(200).json(updatedGroup);
         } catch (error) {
@@ -76,4 +78,15 @@ class GroupController{
             return res.status(500).json(error);
         }
     }
+
+    public async getAllGroups(req: Request, res: Response): Promise<Response>{
+        try {
+            const groups: GroupDocument[] = await groupService.getAllAndUsers();
+            return res.status(200).json(groups);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
 }
+
+export default new GroupController();

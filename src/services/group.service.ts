@@ -39,7 +39,9 @@ class GroupService{
 
     public async addUserToGroup(group: GroupDocument, userId: string): Promise<GroupDocument | null>{
         try {
-            const updatedGroup = GroupModel.findByIdAndUpdate(group._id, {$push: {users: userId}}, {new: true});
+            console.log(group);
+            console.log(userId);
+            const updatedGroup = GroupModel.findByIdAndUpdate(group._id, {$push: {usersId: userId}}, {new: true});
             return updatedGroup;
         } catch (error) {
             throw error;
@@ -87,6 +89,7 @@ class GroupService{
 
     public async getGroupAndUsers(id: string): Promise<GroupDocument | null>{
         try {
+            console.log(id);
             const group = await GroupModel.findById(id).populate("usersId");
             return group;
         } catch (error) {
