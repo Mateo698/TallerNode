@@ -37,3 +37,9 @@ JWT_SECRET=mi_clave_secreta_para_jwt
 ```
 
 ¡Listo! Con estas configuraciones el proyecto de Node.js debería estar listo para funcionar. Asegúrate de no compartir el archivo `.env` ni sus valores de variables de entorno, ya que contiene información sensible. Para correr el proyecto usa `npm run dev`
+
+Video explicativo
+[![Watch the video](https://img.youtube.com/vi/95IKYvvALi8/hqdefault.jpg)](https://www.youtube.com/embed/95IKYvvALi8)
+
+[<img src="https://img.youtube.com/vi/95IKYvvALi8/hqdefault.jpg" width="600" height="300"
+/>](https://www.youtube.com/embed/95IKYvvALi8)
