@@ -36,4 +36,4 @@ MONGO_URI=mongodb+srv://usuario:contraseña@cluster.mongodb.net/nombre_de_la_bas
 JWT_SECRET=mi_clave_secreta_para_jwt
 ```
 
-¡Listo! Con estas configuraciones, tu proyecto Node.js debería estar listo para funcionar. Asegúrate de no compartir el archivo `.env` ni sus valores de variables de entorno, ya que contiene información sensible.
+¡Listo! Con estas configuraciones el proyecto de Node.js debería estar listo para funcionar. Asegúrate de no compartir el archivo `.env` ni sus valores de variables de entorno, ya que contiene información sensible. Para correr el proyecto usa `npm run dev`
